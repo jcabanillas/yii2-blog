@@ -1,0 +1,25 @@
+{
+    "name": "jcabanillas/yii2-blog",
+    "description": "Yii2 Blog for other application",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Funson Lee",
+            "email": "jcabanillas@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "mihaildev/yii2-ckeditor": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "jcabanillas\\blog\\": ""
+        }
+    },
+    "extra": {
+        "bootstrap": "jcabanillas\\blog\\Bootstrap"
+    }
+}
