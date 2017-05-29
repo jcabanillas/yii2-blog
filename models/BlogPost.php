@@ -103,7 +103,7 @@ class BlogPost extends \yii\db\ActiveRecord
 
     public function getCommentsCount()
     {
-        return $this->hasMany(BlogComment::className(), ['post_id' => 'id', 'status' => 1])->count('post_id');
+        return $this->hasMany(BlogComment::className(), ['post_id' => 'id'])->count('post_id');
     }
 
     /**
