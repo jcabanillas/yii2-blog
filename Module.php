@@ -17,7 +17,7 @@ class Module extends \yii\base\Module
             $this->setViewPath('@jcabanillas/blog/views/backend');
         } elseif (isset(Yii::$app->params['blogTheme'])) {
             $this->setViewPath('@frontend/themes/blog');
-            $this->setLayoutPath('@frontend/themes/blog/layouts');
+            $this->setLayoutPath(Yii::$app->params['blogTheme']);
         } else {
             $this->setViewPath('@jcabanillas/blog/views/frontend');
             $this->setLayoutPath('@jcabanillas/blog/views/frontend/layouts');
