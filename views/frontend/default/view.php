@@ -4,7 +4,7 @@ use yii\widgets\ListView;
 use jcabanillas\blog\Module;
 
 $this->title = Yii::$app->params['blogTitle'] . ' - ' . Yii::$app->params['blogTitleSeo'];
-$this->params['breadcrumbs'][] = 'Artículo';
+$this->params['breadcrumbs'][] = '文章';
 
 /*$this->breadcrumbs=[
     //$post->catalog->title => Yii::app()->createUrl('post/catalog', array('id'=>$post->catalog->id, 'surname'=>$post->catalog->surname)),

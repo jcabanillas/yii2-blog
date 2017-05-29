@@ -95,10 +95,9 @@ return [
     'Frequency' => 'Frecuencia',
 
     'Directly Input Time' => 'Tiempo de Entrada Directa',
-    'Unit comments' => 'Comentarios de la Unidad',
-    'Write comments' => 'Comentarios de Escritura',
+    'Unit comments' => 'Comentarios',
+    'Write comments' => 'Deja un Comentario',
     'Add comments' => 'Agregar comentarios',
     'Actions' => 'Acciones',
     'Permalink to this comment' => 'Enlace a este comentario'
 ];
-
