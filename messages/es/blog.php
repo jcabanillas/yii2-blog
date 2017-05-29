@@ -99,5 +99,6 @@ return [
     'Write comments' => 'Comentarios de Escritura',
     'Add comments' => 'Agregar comentarios',
     'Actions' => 'Acciones',
+    'Permalink to this comment' => 'Enlace a este comentario'
 ];
 

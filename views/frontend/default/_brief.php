@@ -9,10 +9,10 @@ use yii\helpers\StringHelper;
     </div>
     <div class="nav">
         <i class="icon-date"></i><?= Yii::$app->formatter->asDate($data->created_at); ?>
-        <i class="icon-edit"></i><?= 'By ' . $data->user->username; ?>
+        <i class="icon-edit"></i><?= 'Por ' . $data->user->username; ?>
         <i class="icon-cat"></i><?= '<a href="'. Yii::$app->getUrlManager()->createUrl(['/blog/default/catalog/', 'id'=>$data->catalog->id, 'surname'=>$data->catalog->surname]) .'">' . $data->catalog->title . '</a>'; ?>
-        <i class="icon-comment"></i><?= Html::a("评论{$data->commentsCount}条", $data->url.'#comments'); ?>
-        <i class="icon-smiley"></i>阅读<?= $data->click; ?>次
+        <i class="icon-comment"></i><?= Html::a("{$data->commentsCount} comentarios de artículo", $data->url.'#comments'); ?>
+        <i class="icon-smiley"></i>Le&iacute;do <?= $data->click; ?> veces
     </div>
     <div class="content">
         <?php
@@ -21,6 +21,6 @@ use yii\helpers\StringHelper;
         ?>
     </div>
     <span class="tag"><i class="icon-views"></i><?= implode(' ', $data->tagLinks); ?> <?= '<a href="'. Yii::$app->getUrlManager()->createUrl(['/blog/default/catalog/', 'id'=>$data->catalog->id, 'surname'=>$data->catalog->surname]) .'">' . $data->catalog->title . '</a>'; ?></span>
-    <span class="more"><?= Html::a('阅读全文', $data->url, array('target'=>'_blank', 'title'=>Html::encode($data->title))); ?></span>
+    <span class="more"><?= Html::a('leer más', $data->url, array('target'=>'_blank', 'title'=>Html::encode($data->title))); ?></span>
     <div class="clear"></div>
 </div>
