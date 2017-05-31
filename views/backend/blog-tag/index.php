@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use jcabanillas\blog\Module;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\blog\models\BlogTagSearch */
@@ -14,24 +15,27 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-tag-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="col-sm-4">
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
+    </div>
+    <div class="col-sm-8">
+        <?php Pjax::begin(['id' => 'etiquetas']) ?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\CheckboxColumn'],
 
-    <p>
-        <?= Html::a(Module::t('blog', 'Create ') . Module::t('blog', 'Blog Tag'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+                'id',
+                'name',
+                'frequency',
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\CheckboxColumn'],
-
-            'id',
-            'name',
-            'frequency',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
+        <?php Pjax::end() ?>
+    </div>
 
 </div>

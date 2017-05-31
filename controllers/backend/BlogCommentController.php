@@ -15,6 +15,8 @@ use yii\filters\AccessControl;
  */
 class BlogCommentController extends Controller
 {
+    public $layout = 'main';
+
     public function behaviors()
     {
         return [
@@ -79,7 +81,8 @@ class BlogCommentController extends Controller
         $model = new BlogComment();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            // return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -100,7 +103,8 @@ class BlogCommentController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            // return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,

@@ -17,6 +17,8 @@ use yii\web\UploadedFile;
  */
 class BlogCatalogController extends Controller
 {
+    public $layout = 'main';
+
     public function behaviors()
     {
         return [

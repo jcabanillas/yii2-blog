@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use jcabanillas\blog\Module;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
@@ -155,5 +156,10 @@ class BlogComment extends \yii\db\ActiveRecord
             'order'=>'t.created_at DESC',
             'limit'=>$limit,
         ));*/
+    }
+
+    public static function getArrayPost()
+    {
+        return ArrayHelper::map(BlogPost::find()->all(), 'id', 'title');
     }
 }

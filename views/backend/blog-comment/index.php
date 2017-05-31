@@ -24,25 +24,38 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions' => [
+            'class' => 'table table-striped table-bordered table-hover table-checkable dataTable no-footer',
+        ],
+        'headerRowOptions' => [
+            'role' => "row",
+            'class' => 'heading',
+        ],
+        'filterRowOptions' => [
+            'role' => "row",
+            'class' => 'filter',
+        ],
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn'],
 
             [
-                'attribute'=>'post_id',
-                'value'=>function ($model) {
-                    return mb_substr($model->post->title, 0, 15, 'utf-8') . '...';
+                'attribute' => 'post_id',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Html::a(mb_substr($model->post->title, 0, 15, 'utf-8') . '...', ['/blog/blog-post/update', 'id' => $model->post->id]);
                 },
-                /*'filter' => Html::activeDropDownList(
+                'filter' => Html::activeDropDownList(
                     $searchModel,
                     'post_id',
-                    \jcabanillas\blog\models\BlogPost::getArrayCatalog(),
+                    \jcabanillas\blog\models\BlogComment::getArrayPost(),
                     ['class' => 'form-control', 'prompt' => Module::t('blog', 'Please Filter')]
-                )*/
+                )
             ],
             [
-                'attribute'=>'content',
-                'value'=>function ($model) {
-                    return mb_substr(Yii::$app->formatter->asText($model->content), 0, 30, 'utf-8') . '...';
+                'attribute' => 'content',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Html::a(mb_substr(Yii::$app->formatter->asText($model->content), 0, 30, 'utf-8') . '...', ['update', 'id' => $model->id]);
                 },
             ],
             'author',
@@ -73,7 +86,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'create_time',
             // 'update_time',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+            ],
         ],
     ]); ?>
 

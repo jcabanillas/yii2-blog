@@ -8,7 +8,7 @@ use jcabanillas\blog\Module;
 
 $this->title = Module::t('blog', 'Update ') . Module::t('blog', 'Blog Comment') . ' ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Module::t('blog', 'Blog Comments'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => mb_substr(Yii::$app->formatter->asText($model->content), 0, 30, 'utf-8') . '...', 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Module::t('blog', 'Update');
 ?>
 <div class="blog-comment-update">

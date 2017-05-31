@@ -15,6 +15,8 @@ use yii\filters\AccessControl;
  */
 class BlogTagController extends Controller
 {
+    public $layout = 'main';
+
     public function behaviors()
     {
         return [
@@ -43,6 +45,11 @@ class BlogTagController extends Controller
     public function actionIndex()
     {
         //if(!Yii::$app->user->can('readPost')) throw new HttpException(403, 'No Auth');
+        $model = new BlogTag();
+        $model->loadDefaultValues();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model = new BlogTag(); //reset model
+        }
 
         $searchModel = new BlogTagSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -50,6 +57,7 @@ class BlogTagController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 
@@ -61,7 +69,7 @@ class BlogTagController extends Controller
     public function actionView($id)
     {
         //if(!Yii::$app->user->can('readPost')) throw new HttpException(401, 'No Auth');
-        
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

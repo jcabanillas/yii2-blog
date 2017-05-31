@@ -17,6 +17,8 @@ use yii\web\UploadedFile;
  */
 class BlogPostController extends Controller
 {
+    public $layout = 'main';
+
     public function behaviors()
     {
         return [
@@ -94,7 +96,8 @@ class BlogPostController extends Controller
                 }
                 $model->save(false);
 
-                return $this->redirect(['view', 'id' => $model->id]);
+                // return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['update', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
@@ -132,7 +135,8 @@ class BlogPostController extends Controller
                 }
 
                 $model->save(false);
-                return $this->redirect(['view', 'id' => $model->id]);
+                // return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['update', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
