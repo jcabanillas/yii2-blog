@@ -28,15 +28,13 @@ use mihaildev\ckeditor\CKEditor;
 
     <?= $form->field($model, 'brief')->textarea(['rows' => 6, 'placeholder' => Module::t('blog', 'Brief')]) ?>
 
-    <?= $form->field($model, 'content')->widget(CKEditor::className(), [
-        'editorOptions' => [
-            'preset' => 'full',
-            'inline' => false,
-        ],
-        'options' => [
-            'placeholder' => Module::t('blog', 'Content')
+    <?= $form->field($model, 'content')->widget(\yii\redactor\widgets\Redactor::className(),
+        [
+            'clientOptions' => [
+                'imageUpload' => \yii\helpers\Url::to(['/redactor/upload/image']),
+            ],
         ]
-    ]); ?>
+    ) ?>
 
 </div>
 <div class="col-sm-3">
@@ -50,7 +48,7 @@ use mihaildev\ckeditor\CKEditor;
         <div class="portlet-body form blog-post-form">
             <?= $form->field($model, 'status')->dropDownList(\jcabanillas\blog\models\Status::labels(), ['placeholder' => Module::t('blog', 'Status')]) ?>
 
-            <?= $form->field($model, 'click')->hiddenInput()// textInput(['placeholder' => Module::t('blog', 'Click')]) ?>
+            <?= $form->field($model, 'click')->hiddenInput()// textInput(['placeholder' => Module::t('blog', 'Click')])   ?>
 
             <div class="form-actions">
                 <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
