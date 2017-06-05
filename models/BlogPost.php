@@ -5,6 +5,7 @@ namespace jcabanillas\blog\models;
 use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\SluggableBehavior;
 use yii\db\Expression;
 use jcabanillas\blog\Module;
 use yii\helpers\ArrayHelper;
@@ -19,7 +20,7 @@ use yii\helpers\Html;
  * @property string $title
  * @property string $content
  * @property string $tags
- * @property string $surname
+ * @property string $slug
  * @property string $banner
  * @property integer $click
  * @property integer $user_id
@@ -51,7 +52,16 @@ class BlogPost extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            'class' => TimestampBehavior::className(),
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+            ],
+            'slug' => [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'title',
+                'slugAttribute' => 'slug',
+                'immutable' => true,
+                'ensureUnique' => true,
+            ],
         ];
     }
 
@@ -61,12 +71,12 @@ class BlogPost extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['catalog_id', 'title', 'content', 'tags', 'surname', 'user_id'], 'required'],
+            [['catalog_id', 'title', 'content', 'tags', 'user_id'], 'required'],
             [['catalog_id', 'click', 'user_id', 'status'], 'integer'],
             [['brief', 'content'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['banner'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
-            [['title', 'tags', 'surname'], 'string', 'max' => 128]
+            [['title', 'tags', 'slug'], 'string', 'max' => 128]
         ];
     }
 
@@ -82,7 +92,7 @@ class BlogPost extends \yii\db\ActiveRecord
             'brief' => Module::t('blog', 'Brief'),
             'content' => Module::t('blog', 'Content'),
             'tags' => Module::t('blog', 'Tags'),
-            'surname' => Module::t('blog', 'Surname'),
+            'slug' => Module::t('blog', 'Slug'),
             'banner' => Module::t('blog', 'Banner'),
             'click' => Module::t('blog', 'Click'),
             'user_id' => Module::t('blog', 'User ID'),
@@ -192,7 +202,7 @@ class BlogPost extends \yii\db\ActiveRecord
     /**
      * Normalizes the user-entered tags.
      */
-    public function normalizeTags($attribute,$params)
+    public function normalizeTags($attribute, $params)
     {
         $this->tags = BlogTag::array2string(array_unique(array_map('trim', BlogTag::string2array($this->tags))));
     }
@@ -202,7 +212,13 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function getUrl()
     {
-        return Yii::$app->getUrlManager()->createUrl(['blog/default/view', 'id' => $this->id, 'surname' => $this->surname]);
+        return Yii::$app->getUrlManager()->createUrl(['blog/default/view', 'id' => $this->id, 'slug' => $this->slug]);
+    }
+
+
+    public function getUrl2()
+    {
+        return Yii::$app->getUrlManager()->createUrl($this->slug);
     }
 
     /**
@@ -211,8 +227,8 @@ class BlogPost extends \yii\db\ActiveRecord
     public function getTagLinks()
     {
         $links = [];
-        foreach(BlogTag::string2array($this->tags) as $tag)
-            $links[] = Html::a($tag, Yii::$app->getUrlManager()->createUrl(['blog/default/index', 'tag'=>$tag]));
+        foreach (BlogTag::string2array($this->tags) as $tag)
+            $links[] = Html::a($tag, Yii::$app->getUrlManager()->createUrl(['blog/default/index', 'tag' => $tag]));
 
         return $links;
     }

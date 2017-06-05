@@ -24,7 +24,7 @@ use mihaildev\ckeditor\CKEditor;
 <div class="col-sm-9">
     <?= $form->field($model, 'title')->textInput(['maxlength' => 128, 'placeholder' => Module::t('blog', 'Title')]) ?>
 
-    <?= $form->field($model, 'surname')->textInput(['maxlength' => 128, 'placeholder' => Module::t('blog', 'Surname')]) ?>
+    <?php // $form->field($model, 'surname')->textInput(['maxlength' => 128, 'placeholder' => Module::t('blog', 'Surname')]) ?>
 
     <?= $form->field($model, 'brief')->textarea(['rows' => 6, 'placeholder' => Module::t('blog', 'Brief')]) ?>
 

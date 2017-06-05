@@ -190,4 +190,22 @@ class DefaultController extends Controller
         return $comment;
     }
 
+    public function actionSlug($slug)
+    {
+        $post = BlogPost::find()->where(['slug'=>$slug])->one();
+        if (!is_null($post)) {
+            $post->updateCounters(['click' => 1]);
+            $comments = BlogComment::find()->where(['post_id' => $post->id, 'status' => Status::STATUS_ACTIVE])->orderBy(['created_at' => SORT_ASC])->all();
+            $comment = $this->newComment($post);
+            return $this->render('view', [
+                'post' => $post,
+                'comments' => $comments,
+                'comment' => $comment,
+            ]);
+        } else {
+            return $this->redirect('index');
+        }
+    }
+
+
 }
