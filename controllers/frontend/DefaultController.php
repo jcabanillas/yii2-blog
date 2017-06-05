@@ -203,7 +203,7 @@ class DefaultController extends Controller
                 'comment' => $comment,
             ]);
         } else {
-            return $this->redirect('index');
+            return $this->redirect('/blog/default/index');
         }
     }
 
